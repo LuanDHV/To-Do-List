@@ -1,24 +1,26 @@
 import { useGetTodosQuery } from "../redux/todoApi";
 import { TodoType } from "../types/interface";
+import AddTodo from "./AddTodo";
+import ItemsTodo from "./ItemsTodo";
 
 const TodoList = () => {
-  const { data, error, isLoading } = useGetTodosQuery(undefined);
+  const {
+    data: TodoList,
+    isLoading: isFetching,
+    error: fetchError,
+  } = useGetTodosQuery(undefined);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading todos</p>;
+  if (isFetching) return <p className="text-red-500">Loading</p>;
+  if (fetchError) return <p className="text-red-500">Error loading todos</p>;
 
   return (
     <div className="mx-auto mt-10 max-w-2xl">
       <h1 className="mb-5 text-center text-3xl font-bold">To-do List</h1>
-      <ul className="divide-y divide-gray-200 rounded-lg bg-white shadow">
-        {data?.todos?.slice(0, 10).map((todo: TodoType) => (
-          <li
-            key={todo.id}
-            className={`p-4 ${todo.completed ? "bg-green-100" : "bg-red-100"} flex items-center justify-between`}
-          >
-            <span>{todo.todo}</span>
-            <span>{todo.completed ? "Completed" : "Pending"}</span>
-          </li>
+      <AddTodo />
+      <ul className="rounded-lg bg-white shadow">
+        {TodoList?.todos?.slice(0, 10).map((todo: TodoType) => (
+          // Using ItemsTodo component to render each todo item
+          <ItemsTodo key={todo.id} todo={todo} />
         ))}
       </ul>
     </div>
