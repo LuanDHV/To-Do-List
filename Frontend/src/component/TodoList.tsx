@@ -1,5 +1,5 @@
 import { useGetTodosQuery } from "../redux/todoApi";
-import { TodoType } from "../types/interface";
+import { ITodo } from "../types/interface";
 import AddTodo from "./AddTodo";
 import ItemsTodo from "./ItemsTodo";
 
@@ -15,9 +15,9 @@ const TodoList = () => {
       <h1 className="mb-5 text-center text-3xl font-bold">To-do List</h1>
       <AddTodo />
       <ul className="rounded-lg bg-white shadow">
-        {TodoList?.todos?.map((todo: TodoType) => (
+        {TodoList?.map((todo: ITodo) => (
           // Using ItemsTodo component to render each todo item
-          <ItemsTodo key={todo.id} todo={todo} />
+          <ItemsTodo key={todo._id} todo={todo} />
         ))}
       </ul>
       {fetchError && <p className="text-red-500">Failed to add todo</p>}

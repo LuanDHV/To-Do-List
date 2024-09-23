@@ -1,9 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-
-export interface ITodo extends Document {
-  todo: string;
-  completed: boolean;
-}
+import { ITodo } from "./types/interface";
 
 const todoSchema: Schema = new Schema({
   todo: { type: String, required: true },

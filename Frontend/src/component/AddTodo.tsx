@@ -6,13 +6,11 @@ const AddTodo = () => {
   const [addTodo, { isLoading: isAdding, error: addError }] =
     useAddTodoMutation();
 
-  const userId = "123"; // Test user ID
-
   const handleAddTodo = async (e: any) => {
     e.preventDefault();
     if (todo) {
       try {
-        await addTodo({ todo, completed: false, userId }).unwrap();
+        await addTodo({ todo, completed: false }).unwrap();
         setTodo("");
       } catch (error) {
         console.error("Failed to add todo", error);

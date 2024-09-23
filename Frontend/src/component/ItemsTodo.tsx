@@ -1,7 +1,7 @@
 import { useUpdateTodoMutation, useDeleteTodoMutation } from "../redux/todoApi";
-import { TodoType } from "../types/interface";
+import { ITodo } from "../types/interface";
 
-const ItemsTodo = ({ todo }: { todo: TodoType }) => {
+const ItemsTodo = ({ todo }: { todo: ITodo }) => {
   const [updateTodo] = useUpdateTodoMutation();
   const [deleteTodo, { isLoading: isDeleting, error: deleteError }] =
     useDeleteTodoMutation();
@@ -9,20 +9,19 @@ const ItemsTodo = ({ todo }: { todo: TodoType }) => {
   const handleToggleCompleted = async () => {
     try {
       await updateTodo({
-        id: todo.id,
-        todo: todo.todo,
+        id: todo._id,
         completed: !todo.completed,
       }).unwrap();
     } catch (error) {
-      console.error("Failed to update todo", error); // Log lỗi khi cập nhật thất bại
+      console.error("Failed to update todo", error);
     }
   };
 
   const handleDelete = async () => {
     try {
-      await deleteTodo(todo.id).unwrap();
+      await deleteTodo(todo._id).unwrap();
     } catch (error) {
-      console.error("Failed to delete todo", error); // Log lỗi khi xóa thất bại
+      console.error("Failed to delete todo", error);
     }
   };
 

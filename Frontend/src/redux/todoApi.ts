@@ -1,48 +1,42 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const todoApi = createApi({
-  reducerPath: "todoApi", // Unique key for the reducer
+  reducerPath: "todoApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://dummyjson.com/",
+    baseUrl: "http://localhost:5000/",
   }),
-  tagTypes: ["Todo"], // Defining tag types for cache management
+  tagTypes: ["Todo"],
   endpoints: (builder) => ({
-    // Get list todos
+    // Get list of todos
     getTodos: builder.query({
-      query: () => "todos",
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.todos.map(({ id }: any) => ({ type: "Todo", id })),
-              { type: "Todo", id: "LIST" }, // Tag cho danh sách
-            ]
-          : [{ type: "Todo", id: "LIST" }],
+      query: () => "/todos",
+      providesTags: [{ type: "Todo", id: "LIST" }], // Provides a general tag for the entire list
     }),
-    // Add new todo
+    // Add a new todo
     addTodo: builder.mutation({
       query: (newTodo) => ({
-        url: "todos/add",
+        url: "todos",
         method: "POST",
         body: newTodo,
       }),
-      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the todo list
+      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the entire list after adding
     }),
-    // Update todo
+    // Update an existing todo
     updateTodo: builder.mutation({
       query: ({ id, ...updatedTodo }) => ({
         url: `todos/${id}`,
         method: "PUT",
         body: updatedTodo,
       }),
-      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the todo list
+      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the entire list after updating
     }),
-    // Delete todo
+    // Delete a todo
     deleteTodo: builder.mutation({
       query: (id) => ({
         url: `todos/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the todo list
+      invalidatesTags: [{ type: "Todo", id: "LIST" }], // Invalidates the entire list after deleting
     }),
   }),
 });
