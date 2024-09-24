@@ -4,7 +4,13 @@ import { ITodo } from "../types/interface";
 import { toast } from "react-toastify";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const ItemsTodo = ({ todo }: { todo: ITodo }) => {
+const ItemsTodo = ({
+  todo,
+  isDarkMode,
+}: {
+  todo: ITodo;
+  isDarkMode: boolean;
+}) => {
   const [updateTodo] = useUpdateTodoMutation();
   const [deleteTodo, { isLoading: isDeleting, error: deleteError }] =
     useDeleteTodoMutation();
@@ -32,7 +38,17 @@ const ItemsTodo = ({ todo }: { todo: ITodo }) => {
 
   return (
     <li
-      className={`cursor-pointer border p-4 shadow-md duration-300 ease-in-out hover:bg-[#E8F0FE] ${todo.completed ? "bg-red-100" : "bg-green-100"} flex items-center justify-between`}
+      className={`flex justify-between border p-4 shadow-md duration-300 ease-in-out ${
+        isDarkMode
+          ? "bg-dark-bg text-dark-text border-dark-border"
+          : "bg-light-bg text-light-text border-light-border"
+      } ${
+        todo.completed
+          ? isDarkMode
+            ? "bg-dark-completed line-through"
+            : "bg-light-completed line-through"
+          : ""
+      } `}
     >
       <div className="flex items-center gap-5">
         <input
@@ -41,13 +57,11 @@ const ItemsTodo = ({ todo }: { todo: ITodo }) => {
           onChange={handleToggleCompleted}
           className="h-4 w-4 cursor-pointer"
         />
-        <span className={`${todo.completed ? "line-through" : ""}`}>
-          {todo.todo}
-        </span>
+        <span>{todo.todo}</span>
       </div>
       <button
         onClick={handleDelete}
-        className="text-red-500"
+        className="h-4 w-4 cursor-pointer text-red-500"
         disabled={isDeleting}
       >
         {isDeleting ? "Deleting..." : <FontAwesomeIcon icon={faTrash} />}

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const AddTodo = () => {
+const AddTodo = ({ isDarkMode }: { isDarkMode: boolean }) => {
   const [todo, setTodo] = useState("");
   const [addTodo, { isLoading: isAdding, error: addError }] =
     useAddTodoMutation();
@@ -29,12 +29,20 @@ const AddTodo = () => {
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
         placeholder="Enter new todo"
-        className="w-5/6 border p-3 outline-none"
-        disabled={isAdding} // Disable button while loading
+        className={`w-5/6 border p-3 outline-none ${
+          isDarkMode
+            ? "bg-dark-bg text-dark-text border-dark-border"
+            : "bg-light-bg text-light-text border-light-border"
+        }`}
+        disabled={isAdding} // Disable input while loading
       />
       <button
         type="submit"
-        className="w-1/6 bg-blue-500 text-white"
+        className={`w-1/6 ${
+          isDarkMode
+            ? "bg-dark-button hover:bg-dark-hover"
+            : "bg-light-button hover:bg-light-hover"
+        } text-white duration-300 ease-in-out`}
         disabled={isAdding}
       >
         {isAdding ? "Adding..." : <FontAwesomeIcon icon={faPlus} />}

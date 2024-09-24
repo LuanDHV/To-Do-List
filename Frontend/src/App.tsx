@@ -4,7 +4,7 @@ import TodoList from "./component/TodoList";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
       <ToastContainer
         position="bottom-right"
         autoClose={2000}
@@ -17,7 +17,8 @@ export default function App() {
         pauseOnHover
         theme="light"
       />
+
       <TodoList />
-    </div>
+    </>
   );
 }
