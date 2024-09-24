@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useAddTodoMutation } from "../redux/todoApi";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const AddTodo = () => {
   const [todo, setTodo] = useState("");
@@ -12,6 +15,7 @@ const AddTodo = () => {
       try {
         await addTodo({ todo, completed: false }).unwrap();
         setTodo("");
+        toast.success("Todo added successfully!");
       } catch (error) {
         console.error("Failed to add todo", error);
       }
@@ -25,7 +29,7 @@ const AddTodo = () => {
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
         placeholder="Enter new todo"
-        className="w-5/6 p-3 outline-none"
+        className="w-5/6 border p-3 outline-none"
         disabled={isAdding} // Disable button while loading
       />
       <button
@@ -33,7 +37,7 @@ const AddTodo = () => {
         className="w-1/6 bg-blue-500 text-white"
         disabled={isAdding}
       >
-        {isAdding ? "Adding..." : "Add Todo"}{" "}
+        {isAdding ? "Adding..." : <FontAwesomeIcon icon={faPlus} />}
       </button>
       {addError && <p className="text-red-500">Failed to add todo</p>}
     </form>
