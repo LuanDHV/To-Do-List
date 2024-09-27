@@ -1,50 +1,37 @@
-# React + TypeScript + Vite
+# MERN Stack Project To-Do-List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the MERN Stack Project To-Do-List!
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To run this project, you need to have the following software installed on your machine:
 
-## Expanding the ESLint configuration
+- Node.js
+- npm (Node Package Manager)
+- MongoDB
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installation
 
-- Configure the top-level `parserOptions` property like this:
+Clone the repository to your local machine:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+```bash
+git clone https://github.com/LuanDHV/To-Do-List
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+# Navigate to the project directory
+cd To-Do-List
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+# Install frontend dependencies
+cd frontend
+npm install
+npm run dev
+
+# Install backend dependencies
+cd backend
+npm install
+npm start
+
+The application will start running. You can now access the frontend at `http://localhost:3000 and interact with the backend at `http://localhost:5000.
+
+
 ```
